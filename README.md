@@ -13,4 +13,8 @@ For each level up, the prime attribute value will increased. For every three lev
 As Onmyoji players really pay attention to 'Full speed soul(prime attribute is speed and all boosts for non-prime attribute are for speed)', I also conduct a data analysis to analyze how many souls will reach this standard in 50,000,000 rounds using parallel processing.
 
 # Result
-
+From the histogram, we can see that the distribution is similar to a normal distribution, which is quite reasonable. Most full speed soul have a non-prime speed value between 15.77-16.82.
+<div style="display: inline-block;">
+  <img src="soul_data_analysis/Histogram.png" alt="viewers" width="500"> 
+  <img src="soul_data_analysis/Frequency of Each Range.png" alt="rating" width="500"> 
+</div>

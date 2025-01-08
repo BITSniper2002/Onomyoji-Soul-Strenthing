@@ -3,19 +3,25 @@ import random
 from decimal import Decimal, ROUND_HALF_UP
 import time
 from multiprocessing import Pool
+import tkinter as tk
+from tkinter import ttk, simpledialog
+from PIL import Image, ImageTk
+import requests
+from bs4 import BeautifulSoup
 
-# def fetch_soul_titles(url):
-#     response = requests.get(url)
-#     soup = BeautifulSoup(response.content, 'html.parser')
-#     titles = list(set([a['title'] for a in soup.select('td a[title]')]))
-#     removed = ['Youtou', 'Suzume', 'Aosaginohi\u200b', 'Kosode-no-Te','EXP Soul','Boss Souls']
-#     for r in removed:
-#         titles.remove(r)
-#     return titles
-#
-# soul_kinds = fetch_soul_titles("https://onmyoji.fandom.com/wiki/Soul/List#Released")
-# with open('./soul_kinds.txt','w') as f:
-#     f.writelines(line + '\n' for line in soul_kinds)
+
+def fetch_soul_titles(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    titles = list(set([a['title'] for a in soup.select('td a[title]')]))
+    removed = ['Youtou', 'Suzume', 'Aosaginohi\u200b', 'Kosode-no-Te','EXP Soul','Boss Souls']
+    for r in removed:
+        titles.remove(r)
+    return titles
+
+soul_kinds = fetch_soul_titles("https://onmyoji.fandom.com/wiki/Soul/List#Released")
+with open('./soul_kinds.txt','w') as f:
+    f.writelines(line + '\n' for line in soul_kinds)
 
 soul_kinds = []
 with open('./soul_kinds.txt','r') as f:
@@ -85,16 +91,19 @@ class Soul:
 
 
 def boost(s: Soul, exp):
+    # print(f'before boost:{s.exp}')
     last_lv = s.level
     s.exp += exp
+    # print(f'after boost:{s.exp}')
     for k, v in exp_level.items():
-        if exp > v:
+        if s.exp > v:
             continue
-        elif exp == v:
+        elif s.exp == v:
             s.level = k
         else:
             s.level = k - 1
             break
+    # print(f'level:{s.level}')
 
     s.prime_value = Decimal(prime_attrs[s.prime] + (s.level - 0) * prime_increase_per_level[s.prime]).quantize(
         Decimal("0.01"), rounding=ROUND_HALF_UP)
@@ -108,6 +117,8 @@ def boost(s: Soul, exp):
         s.for_boost.append(to_boost)
 
 
+
+
 def process_soul(_):
     s = Soul()
     boost(s, 236250)
@@ -116,7 +127,6 @@ def process_soul(_):
         if s.non_prime_value[idx] >= 15.5:
             return s.non_prime_value[idx]
     return None
-
 
 if __name__ == "__main__":
     cnt = 0
@@ -133,3 +143,10 @@ if __name__ == "__main__":
     print(f"Count: {cnt}, Average:{sum(valid_results)/cnt:.2f}, Max:{max(valid_results)}, Time: {time.time() - start_time:.2f} seconds")
 
 
+    
+
+
+
+
+
+    

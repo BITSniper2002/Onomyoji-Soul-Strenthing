@@ -18,3 +18,7 @@ From the histogram, we can see that the distribution is similar to a normal dist
   <img src="soul_data_analysis/Histogram.png" alt="viewers" width="500"> 
   <img src="soul_data_analysis/Frequency of Each Range.png" alt="rating" width="500"> 
 </div>
+
+
+# Acknowledgement
+Thanks to the information of [Onmyoji fandom](https://onmyoji.fandom.com/).

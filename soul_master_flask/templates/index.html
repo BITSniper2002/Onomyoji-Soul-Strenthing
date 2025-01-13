@@ -1,0 +1,484 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Soul Master</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            background-image: url("{{ url_for('static', filename='../static/img/background.jpeg') }}");&ndash;&gt;-->
+<!--&lt;!&ndash;            background-size: cover;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: Arial, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        button {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 10px 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        #soul-container {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255, 255, 255, 0.8);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 20px auto;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 60%;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        .soul {&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: inline-block;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        .soul img {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 100px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        .tooltip {&ndash;&gt;-->
+<!--&lt;!&ndash;            visibility: hidden;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(0, 0, 0, 0.8);&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 200px;&ndash;&gt;-->
+<!--&lt;!&ndash;            bottom: 110%;&ndash;&gt;-->
+<!--&lt;!&ndash;            left: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateX(-50%);&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: left;&ndash;&gt;-->
+<!--&lt;!&ndash;            z-index: 1;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 14px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        .soul:hover .tooltip {&ndash;&gt;-->
+<!--&lt;!&ndash;            visibility: visible;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h1>Soul Master</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button onclick="initializeSouls()">Initialize</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button onclick="showWarehouse()">Warehouse</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button onclick="hideWarehouse()">Hide Warehouse</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button onclick="showHelp()">Help</button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div id="soul-container"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <script>&ndash;&gt;-->
+<!--&lt;!&ndash;        function initializeSouls() {&ndash;&gt;-->
+<!--&lt;!&ndash;            let numSouls = prompt("Enter the number of souls to generate:");&ndash;&gt;-->
+<!--&lt;!&ndash;            if (numSouls) {&ndash;&gt;-->
+<!--&lt;!&ndash;                fetch('/initialize/' + numSouls)&ndash;&gt;-->
+<!--&lt;!&ndash;                .then(response => response.json())&ndash;&gt;-->
+<!--&lt;!&ndash;                .then(data => alert("Souls initialized!"))&ndash;&gt;-->
+<!--&lt;!&ndash;                .catch(error => console.error('Error:', error));&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        function showWarehouse() {&ndash;&gt;-->
+<!--&lt;!&ndash;            fetch('/warehouse')&ndash;&gt;-->
+<!--&lt;!&ndash;            .then(response => response.json())&ndash;&gt;-->
+<!--&lt;!&ndash;            .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;                let container = document.getElementById('soul-container');&ndash;&gt;-->
+<!--&lt;!&ndash;                container.innerHTML = "<h2>Souls in Warehouse</h2>";&ndash;&gt;-->
+<!--&lt;!&ndash;                data.souls.forEach(soul => {&ndash;&gt;-->
+<!--&lt;!&ndash;                    let soulDiv = document.createElement('div');&ndash;&gt;-->
+<!--&lt;!&ndash;                    soulDiv.classList.add('soul');&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    let img = document.createElement('img');&ndash;&gt;-->
+<!--&lt;!&ndash;                    img.src = "/static/img/" + soul.name.toLowerCase().replace(/\s+/g, '_') + ".png";&ndash;&gt;-->
+<!--&lt;!&ndash;                    img.alt = soul.name;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    let tooltip = document.createElement('div');&ndash;&gt;-->
+<!--&lt;!&ndash;                    tooltip.classList.add('tooltip');&ndash;&gt;-->
+<!--&lt;!&ndash;                    tooltip.innerHTML = `&ndash;&gt;-->
+<!--&lt;!&ndash;                        <strong>${soul.name}</strong><br>&ndash;&gt;-->
+<!--&lt;!&ndash;                        Slot: ${soul.slot}<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                        Prime: ${soul.prime} (${soul.prime_value})<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                        Non-Prime:<br>&ndash;&gt;-->
+<!--&lt;!&ndash;                        ${soul.non_prime.map((attr, i) => `${attr}: ${soul.non_prime_value[i]}`).join('<br>')}&ndash;&gt;-->
+<!--&lt;!&ndash;                    `;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    soulDiv.appendChild(img);&ndash;&gt;-->
+<!--&lt;!&ndash;                    soulDiv.appendChild(tooltip);&ndash;&gt;-->
+<!--&lt;!&ndash;                    container.appendChild(soulDiv);&ndash;&gt;-->
+<!--&lt;!&ndash;                });&ndash;&gt;-->
+
+<!--&lt;!&ndash;                container.style.display = "flex";&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        function hideWarehouse() {&ndash;&gt;-->
+<!--&lt;!&ndash;            document.getElementById('soul-container').style.display = "none";&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        function showHelp() {&ndash;&gt;-->
+<!--&lt;!&ndash;            alert("Instructions:\n1. Click 'Initialize' to generate souls.\n2. Click 'Warehouse' to view stored souls.\n3. Click 'Hide Warehouse' to hide them.\n4. More functions coming soon!");&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        function showSoulOptions(soulIndex) {&ndash;&gt;-->
+<!--&lt;!&ndash;            let action = confirm("Do you want to boost this soul? Click OK to boost, Cancel to delete.");&ndash;&gt;-->
+<!--&lt;!&ndash;            if (action) {&ndash;&gt;-->
+<!--&lt;!&ndash;                fetch(`/boost_soul/${soulIndex}`, { method: 'POST' })&ndash;&gt;-->
+<!--&lt;!&ndash;                    .then(response => response.json())&ndash;&gt;-->
+<!--&lt;!&ndash;                    .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;                        alert(data.message);&ndash;&gt;-->
+<!--&lt;!&ndash;                        location.reload();&ndash;&gt;-->
+<!--&lt;!&ndash;                    });&ndash;&gt;-->
+<!--&lt;!&ndash;            } else {&ndash;&gt;-->
+<!--&lt;!&ndash;                let confirmDelete = confirm("Are you sure you want to delete this soul?");&ndash;&gt;-->
+<!--&lt;!&ndash;                if (confirmDelete) {&ndash;&gt;-->
+<!--&lt;!&ndash;                    fetch(`/delete_soul/${soulIndex}`, { method: 'POST' })&ndash;&gt;-->
+<!--&lt;!&ndash;                        .then(response => response.json())&ndash;&gt;-->
+<!--&lt;!&ndash;                        .then(data => {&ndash;&gt;-->
+<!--&lt;!&ndash;                            alert(data.message);&ndash;&gt;-->
+<!--&lt;!&ndash;                            location.reload();&ndash;&gt;-->
+<!--&lt;!&ndash;                        });&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Soul Master</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            background-image: url("{{ url_for('static', filename='../static/img/background.jpeg') }}");-->
+<!--            background-size: cover;-->
+<!--            text-align: center;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        button {-->
+<!--            margin: 10px;-->
+<!--            padding: 10px 20px;-->
+<!--            font-size: 16px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        #soul-container {-->
+<!--            display: none;-->
+<!--            background: rgba(255, 255, 255, 0.8);-->
+<!--            padding: 20px;-->
+<!--            margin: 20px auto;-->
+<!--            width: 60%;-->
+<!--            border-radius: 10px;-->
+<!--            display: flex;-->
+<!--            flex-wrap: wrap;-->
+<!--            justify-content: center;-->
+<!--        }-->
+<!--        .soul {-->
+<!--            position: relative;-->
+<!--            margin: 10px;-->
+<!--            display: inline-block;-->
+<!--        }-->
+<!--        .soul img {-->
+<!--            width: 100px;-->
+<!--            height: 100px;-->
+<!--            border-radius: 10px;-->
+<!--            cursor: pointer;-->
+<!--        }-->
+<!--        .tooltip {-->
+<!--            visibility: hidden;-->
+<!--            position: absolute;-->
+<!--            background: rgba(0, 0, 0, 0.8);-->
+<!--            color: white;-->
+<!--            padding: 10px;-->
+<!--            border-radius: 5px;-->
+<!--            width: 200px;-->
+<!--            bottom: 110%;-->
+<!--            left: 50%;-->
+<!--            transform: translateX(-50%);-->
+<!--            text-align: left;-->
+<!--            z-index: 1;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+<!--        .soul:hover .tooltip {-->
+<!--            visibility: visible;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Soul Master</h1>-->
+<!--    <button onclick="initializeSouls()">Initialize</button>-->
+<!--    <button onclick="showWarehouse()">Warehouse</button>-->
+<!--    <button onclick="hideWarehouse()">Hide Warehouse</button>-->
+<!--    <button onclick="showHelp()">Help</button>-->
+
+<!--    <div id="soul-container"></div>-->
+
+<!--    <script>-->
+<!--        function initializeSouls() {-->
+<!--            let numSouls = prompt("Enter the number of souls to generate:");-->
+<!--            if (numSouls) {-->
+<!--                fetch('/initialize/' + numSouls)-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => alert("Souls initialized!"))-->
+<!--                .catch(error => console.error('Error:', error));-->
+<!--            }-->
+<!--        }-->
+
+<!--        function showWarehouse() {-->
+<!--            fetch('/warehouse')-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                let container = document.getElementById('soul-container');-->
+<!--                container.innerHTML = "<h2>Souls in Warehouse</h2>";-->
+<!--                data.souls.forEach((soul, index) => {-->
+<!--                    let soulDiv = document.createElement('div');-->
+<!--                    soulDiv.classList.add('soul');-->
+
+<!--                    let img = document.createElement('img');-->
+<!--                    img.src = "/static/img/" + soul.name.toLowerCase().replace(/\s+/g, '_') + ".png";-->
+<!--                    img.alt = soul.name;-->
+<!--                    img.onclick = function() { showSoulOptions(index); };-->
+
+<!--                    let tooltip = document.createElement('div');-->
+<!--                    tooltip.classList.add('tooltip');-->
+<!--                    tooltip.innerHTML = `-->
+<!--                        <strong>${soul.name}</strong><br>-->
+<!--                        Slot: ${soul.slot}<br>-->
+<!--                        Prime: ${soul.prime} (${soul.prime_value})<br>-->
+<!--                        Level: ${soul.level} <br>-->
+<!--                        Non-Prime:<br>-->
+<!--                        ${soul.non_prime.map((attr, i) => `${attr}: ${soul.non_prime_value[i]}`).join('<br>')}-->
+<!--                    `;-->
+
+<!--                    soulDiv.appendChild(img);-->
+<!--                    soulDiv.appendChild(tooltip);-->
+<!--                    container.appendChild(soulDiv);-->
+<!--                });-->
+
+<!--                container.style.display = "flex";-->
+<!--            });-->
+<!--        }-->
+
+<!--        function hideWarehouse() {-->
+<!--            document.getElementById('soul-container').style.display = "none";-->
+<!--        }-->
+
+<!--        function showHelp() {-->
+<!--            alert("Instructions:\n1. Click 'Initialize' to generate souls.\n2. Click 'Warehouse' to view stored souls.\n3. Click 'Hide Warehouse' to hide them.\n4. Click on a soul to boost or delete it.");-->
+<!--        }-->
+
+<!--        function showSoulOptions(soulIndex) {-->
+<!--            let action = confirm("Do you want to boost this soul? Click OK to boost, Cancel to delete.");-->
+<!--            if (action) {-->
+<!--                fetch(`/boost_soul/${soulIndex}`, { method: 'POST' })-->
+<!--                    .then(response => response.json())-->
+<!--                    .then(data => {-->
+<!--                        alert(data.message);-->
+<!--                        location.reload();-->
+<!--                    });-->
+<!--            } else {-->
+<!--                let confirmDelete = confirm("Are you sure you want to delete this soul?");-->
+<!--                if (confirmDelete) {-->
+<!--                    fetch(`/delete_soul/${soulIndex}`, { method: 'POST' })-->
+<!--                        .then(response => response.json())-->
+<!--                        .then(data => {-->
+<!--                            alert(data.message);-->
+<!--                            location.reload();-->
+<!--                        });-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Master</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='../static/img/background.jpeg') }}");
+            background-size: cover;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #soul-container {
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin: 20px auto;
+            width: 60%;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .soul {
+            position: relative;
+            margin: 10px;
+            display: inline-block;
+            text-align: center;
+        }
+        .soul img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: left;
+            z-index: 1;
+            font-size: 14px;
+        }
+        .soul:hover .tooltip {
+            visibility: visible;
+        }
+        .options {
+            display: none;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Soul Master</h1>
+    <button onclick="initializeSouls()">Initialize</button>
+    <button onclick="showWarehouse()">Warehouse</button>
+    <button onclick="hideWarehouse()">Hide Warehouse</button>
+    <button onclick="showHelp()">Help</button>
+
+    <div id="soul-container"></div>
+
+    <script>
+        function initializeSouls() {
+            let numSouls = prompt("Enter the number of souls to generate:");
+            if (numSouls) {
+                fetch('/initialize/' + numSouls)
+                .then(response => response.json())
+                .then(data => alert("Souls initialized!"))
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function showWarehouse() {
+            fetch('/warehouse')
+            .then(response => response.json())
+            .then(data => {
+                let container = document.getElementById('soul-container');
+                container.innerHTML = "<h2>Souls in Warehouse</h2>";
+                data.souls.forEach((soul, index) => {
+                    let soulDiv = document.createElement('div');
+                    soulDiv.classList.add('soul');
+
+                    let img = document.createElement('img');
+                    img.src = "/static/img/" + soul.name.toLowerCase().replace(/\s+/g, '_') + ".png";
+                    img.alt = soul.name;
+                    img.onclick = () => toggleOptions(index);
+
+                    let tooltip = document.createElement('div');
+                    tooltip.classList.add('tooltip');
+                    tooltip.innerHTML = `
+                        <strong>${soul.name}</strong><br>
+                        Slot: ${soul.slot}<br>
+                        Prime: ${soul.prime} (${soul.prime_value})<br>
+                        Level: ${soul.level} <br>
+                        Non-Prime:<br>
+                        ${soul.non_prime.map((attr, i) => `${attr}: ${soul.non_prime_value[i]}`).join('<br>')}
+                    `;
+
+                    let optionsDiv = document.createElement('div');
+                    optionsDiv.classList.add('options');
+                    optionsDiv.id = 'options-' + index;
+
+                    let boostButton = document.createElement('button');
+                    boostButton.textContent = "Boost";
+                    boostButton.onclick = () => boostSoul(index);
+
+                    let deleteButton = document.createElement('button');
+                    deleteButton.textContent = "Delete";
+                    deleteButton.onclick = () => deleteSoul(index);
+
+                    optionsDiv.appendChild(boostButton);
+                    optionsDiv.appendChild(deleteButton);
+
+                    soulDiv.appendChild(img);
+                    soulDiv.appendChild(tooltip);
+                    soulDiv.appendChild(optionsDiv);
+                    container.appendChild(soulDiv);
+                });
+                container.style.display = "flex";
+            });
+        }
+
+        function hideWarehouse() {
+            document.getElementById('soul-container').style.display = "none";
+        }
+
+        function showHelp() {
+            alert("Instructions:\n1. Click 'Initialize' to generate souls.\n2. Click 'Warehouse' to view stored souls.\n3. Click 'Hide Warehouse' to hide them.\n4. Click a soul to see options for boosting or deleting.");
+        }
+
+        function toggleOptions(index) {
+            let options = document.getElementById('options-' + index);
+            options.style.display = (options.style.display === 'block') ? 'none' : 'block';
+        }
+
+
+        function boostSoul(soulIndex) {
+            let exp = prompt("Enter the amount of experience to boost this soul:");
+
+            if (exp === null || exp.trim() === "" || isNaN(exp)) {
+                alert("Invalid experience amount. Please enter a number.");
+                return;
+            }
+
+            fetch(`/boost/${soulIndex}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ exp: parseInt(exp, 10) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    showWarehouse();  // Refresh warehouse display
+                } else {
+                    alert("Error: " + JSON.stringify(data));
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+
+        function deleteSoul(soulIndex) {
+            fetch(`/delete/${soulIndex}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                showWarehouse();  // Refresh display after deletion
+            });
+        }
+    </script>
+</body>
+</html>

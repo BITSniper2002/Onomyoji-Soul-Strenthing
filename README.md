@@ -14,6 +14,9 @@ As Onmyoji players really pay attention to 'Full speed soul(prime attribute is s
 
 #### Also, by running Soul master file, you will be provided a user interface to generate souls as well as strenthen them.
 
+# Flask 
+I also develop an website app using Flask. You can activate this app by `python app.py`
+
 # Result
 From the histogram, we can see that the distribution is similar to a normal distribution, which is quite reasonable. Most full speed soul have a non-prime speed value between 15.77-16.82.
 <div style="display: inline-block;">

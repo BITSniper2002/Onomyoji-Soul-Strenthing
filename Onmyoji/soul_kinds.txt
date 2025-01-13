@@ -1,53 +1,53 @@
-Shy Soul
-Soultaker
-Dawn Fairy
-Gagoze
-Priestess
-Fortune Cat
-Houkaizu
-Kyoukotsu
-Tree Nymph
-Himeidori
-Wisp
-Tomb Guard
-Ouseichuu
-Tatamitataki
 Mirror Lady
-Merrow
-Nuribotoke
-Seductress
-Senecio
-Seikichi Oni
-Amanojaku
-House Imp
-Claws
-Pearl
-Samisen
 Yamabiko
-Watcher
-Hi no Kuruma
-Conch Blower
-Tsurubebi
-Mimic
-Oracle
-Scarlet
-Hinoenma
-Shadow
-Azure Basan
-Nightwing
-Aonyobo
-Mutoudori
-Hyosube
-Temptress
-Tree Spirit
-Soul Edge
-Dice Sprite
 Snow Spirit
-Sea Sprite
-Wispzoa
-Jizo Statue
-Innen
-Harpy
+Priestess
+Nightwing
+Tree Nymph
+Hinoenma
+Hi no Kuruma
+Shy Soul
+Tomb Guard
+House Imp
+Temptress
+Claws
+Mutoudori
 Boroboroton
-Holy Flame
+Amanojaku
+Wispzoa
+Samisen
+Azure Basan
+Aonyobo
+Innen
+Conch Blower
+Shadow
+Jizo Statue
+Watcher
+Hyosube
 Leviathan
+Scarlet
+Seikichi Oni
+Dice Sprite
+Wisp
+Himeidori
+Seductress
+Dawn Fairy
+Senecio
+Ouseichuu
+Fortune Cat
+Tsurubebi
+Pearl
+Harpy
+Tatamitataki
+Soultaker
+Sea Sprite
+Mimic
+Houkaizu
+Soul Edge
+Kyoukotsu
+Merrow
+Holy Flame
+Oracle
+Gagoze
+Tree Spirit
+Nuribotoke

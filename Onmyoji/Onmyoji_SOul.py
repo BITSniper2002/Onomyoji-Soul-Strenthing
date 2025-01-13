@@ -14,7 +14,8 @@ def fetch_soul_titles(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     titles = list(set([a['title'] for a in soup.select('td a[title]')]))
-    removed = ['Youtou', 'Suzume', 'Aosaginohi\u200b', 'Kosode-no-Te','EXP Soul','Boss Souls']
+    removed = ['Youtou', 'Suzume', 'Aosaginohi\u200b', 'Kosode-no-Te',
+               'EXP Soul', 'Boss Souls', 'Seikichi Oni', 'Amanojaku']
     for r in removed:
         titles.remove(r)
     return titles
@@ -95,26 +96,44 @@ def boost(s: Soul, exp):
     last_lv = s.level
     s.exp += exp
     # print(f'after boost:{s.exp}')
-    for k, v in exp_level.items():
-        if s.exp > v:
-            continue
-        elif s.exp == v:
-            s.level = k
-        else:
-            s.level = k - 1
-            break
+    if s.exp <= 236250:
+        for k, v in exp_level.items():
+            if s.exp > v:
+                continue
+            elif s.exp == v:
+                s.level = k
+            else:
+                s.level = k - 1
+                break
+    else:
+        s.level = 15
+        s.exp = 236250
     # print(f'level:{s.level}')
 
     s.prime_value = Decimal(prime_attrs[s.prime] + (s.level - 0) * prime_increase_per_level[s.prime]).quantize(
         Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-    np_boost_cnt = (s.level - last_lv) // 3
+    np_boost_cnt = s.level // 3 - last_lv // 3
     for _ in range(np_boost_cnt):
-        to_boost = random.choice(s.for_boost)
-        boost_value = Decimal(random.uniform(*non_prime_attrs[to_boost])).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-        idx = s.non_prime.index(to_boost)
-        s.non_prime_value[idx] += boost_value
-        s.for_boost.append(to_boost)
+        if len(s.non_prime) == 4:
+            to_boost = random.choice(s.for_boost)
+            boost_value = Decimal(random.uniform(*non_prime_attrs[to_boost])).quantize(Decimal("0.01"),
+                                                                                       rounding=ROUND_HALF_UP)
+            idx = s.non_prime.index(to_boost)
+            s.non_prime_value[idx] += boost_value
+            s.for_boost.append(to_boost)
+        else:
+            to_boost = random.choice(list(non_prime_attrs))
+            boost_value = Decimal(random.uniform(*non_prime_attrs[to_boost])).quantize(Decimal("0.01"),
+                                                                                       rounding=ROUND_HALF_UP)
+            if to_boost in s.for_boost:
+                idx = s.non_prime.index(to_boost)
+                s.non_prime_value[idx] += boost_value
+
+            else:
+                s.non_prime.append(to_boost)
+                s.non_prime_value.append(boost_value)
+            s.for_boost.append(to_boost)
 
 
 
